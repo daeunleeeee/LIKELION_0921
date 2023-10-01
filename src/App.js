@@ -3,6 +3,7 @@ import Item from "./Item";
 
 function App() {
   const [changed, setChanged] = useState(null);
+  const [isChecked, setIsChecked] = useState(16); // useState(0)으로 하면 초기 화면에서 "-16"이 나와요. 왜 때문에 그럴까요..?🤔💦
 
   return (
     <>
@@ -11,12 +12,23 @@ function App() {
           <h1>방금 변경된 아이템</h1>
           <div>{changed}</div>
         </section>
+        <section className={"check"}>
+          <h1>체크된 아이템 개수</h1>
+          <div>{isChecked}</div>
+        </section>
         {/* 아이템 리스트 */}
         <section className={"list"}>
           <h1>아이템 리스트</h1>
           <ol>
             {["A", "B", "C", "D", "E", "F", "G", "H"].map((item) => {
-              return <Item key={item} item={item} setChanged={setChanged} />;
+              return (
+                <Item
+                  key={item}
+                  item={item}
+                  setChanged={setChanged}
+                  setIsChecked={setIsChecked}
+                />
+              );
             })}
           </ol>
         </section>
@@ -39,7 +51,16 @@ function App() {
           align-items: center;
           justify-content: flex-start;
         }
+        section.check {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
         section.changed > div {
+          color: purple;
+          font-weight: 800;
+        }
+        section.check > div {
           color: purple;
           font-weight: 800;
         }

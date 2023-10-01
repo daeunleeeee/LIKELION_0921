@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-const Item = ({ item, setChanged }) => {
+const Item = ({ item, setChanged, setIsChecked }) => {
   const [count, setCount] = useState(0);
   const [checked, setChecked] = useState(false);
+
   useEffect(() => {
     setChanged(item);
   }, [count]);
+
+  useEffect(() => {
+    if (checked) {
+      setIsChecked((prevIsChecked) => prevIsChecked + 1);
+    } else {
+      setIsChecked((prevIsChecked) => prevIsChecked - 1);
+    }
+  }, [checked, setIsChecked]);
 
   return (
     <>
@@ -17,7 +26,7 @@ const Item = ({ item, setChanged }) => {
           onChange={(e) => setChecked(e.target.checked)}
           id="checkbox"
         />
-        <label htmlFor="checkbox">{item}</label>
+        <span>{item}</span>
         <div>
           <div>{count}</div>
           <div className={"button-list"}>
@@ -50,6 +59,11 @@ const Item = ({ item, setChanged }) => {
           background-color: white;
           box-shadow: 0px 2px 10px 0px rgb(182 158 198 / 15%);
           height: 2rem;
+        }
+        li > span {
+          font-size: 1.5rem;
+          font-weight: 500;
+          margin-left: -15rem;
         }
         li > label {
           font-size: 1.5rem;
